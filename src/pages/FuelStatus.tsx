@@ -4,7 +4,7 @@ import filterIcn from "../images/filter.svg"
 import green from "../images/green.svg"
 import red from "../images/red.svg"
 
-const ServiceStatus = () => {
+const FuelStatus = () => {
     return (
         <Box
             sx={{
@@ -42,7 +42,7 @@ const ServiceStatus = () => {
                             lineHeight: '24px',
                         }}
                     >
-                        Service Information
+                        Fuel Usage
                     </Typography>
 
                     <Button
@@ -70,7 +70,7 @@ const ServiceStatus = () => {
                         borderBottom: '1px solid rgba(163, 163, 163, 0.25)'
                     }}
                 >
-                    {['No.', 'Car no.', 'Model', 'Service Status', 'Next Service'].map((item, index) => (
+                    {['No.', 'Car no.', 'Model', 'Fuel Efficiency', 'Tank Capacity'].map((item, index) => (
                         <Typography
                             key={index}
                             sx={{
@@ -102,8 +102,6 @@ const ServiceStatus = () => {
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'space-between',
-                                // gap: '140px',
                                 p: '12px 0px',
                                 borderBottom: '1px solid rgba(163, 163, 163, 0.25)'
                             }}
@@ -117,6 +115,7 @@ const ServiceStatus = () => {
                                     fontWeight: 400,
                                     lineHeight: '16px',
                                     pl: '5px',
+                                    mr: '180px'
                                 }}
                             >
                                 {index + 1}
@@ -132,7 +131,8 @@ const ServiceStatus = () => {
                                     lineHeight: '14px',
                                     padding: '4px 12px',
                                     borderRadius: '4px',
-                                    bgcolor: "rgba(153, 153, 153, 0.10)"
+                                    bgcolor: "rgba(153, 153, 153, 0.10)",
+                                    mr: '120px'
                                 }}
                             >
                                 123456
@@ -146,6 +146,7 @@ const ServiceStatus = () => {
                                     fontSize: '12px',
                                     fontWeight: 300,
                                     lineHeight: 'NORMAL',
+                                    mr: '110px'
                                 }}
                             >
                                 Toyota Corolla
@@ -162,11 +163,12 @@ const ServiceStatus = () => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: '5px',
+                                    mr: '160px',
 
                                 }}
                             >
                                 <img src={green} alt="green" />
-                                Service Due
+                                8.1L
                             </Typography>
 
                             <Typography
@@ -190,4 +192,4 @@ const ServiceStatus = () => {
     )
 }
 
-export default ServiceStatus
+export default FuelStatus
