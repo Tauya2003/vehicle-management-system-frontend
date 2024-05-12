@@ -6,18 +6,20 @@ import bellIcn from "../images/menu-bell.svg"
 import carIcn from "../images/menu-car.svg"
 import logoutIcn from "../images/logout.svg"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const buttons = [
-    { "icon": dashboardIcn, "text": "Dashboard" },
-    { "icon": carIcn, "text": "Car Available" },
-    { "icon": bookIcn, "text": "Book Car" },
-    { "icon": bellIcn, "text": "Service Status" },
-    { "icon": bellIcn, "text": "Parking Status" },
-    { "icon": bellIcn, "text": "Fuel Status" },
+    { "icon": dashboardIcn, "text": "Dashboard", path: "/" },
+    { "icon": carIcn, "text": "Car Available", path: "/car-available" },
+    { "icon": bookIcn, "text": "Book Car", path: "/book-car" },
+    { "icon": bellIcn, "text": "Service Status", path: "/service-status" },
+    { "icon": bellIcn, "text": "Parking Status", path: "/parking-status" },
+    { "icon": bellIcn, "text": "Fuel Status", path: "/fuel-status" },
 ]
 
 const Sidebar = () => {
     const [selected, setSelected] = useState("Dashboard")
+    const navigate = useNavigate();
 
     return (
         <Box
@@ -56,7 +58,10 @@ const Sidebar = () => {
             <Stack gap={"8px"} alignItems={'flex-start'}>
                 {buttons.map((button, index) => (
                     <Button
-                        onClick={() => setSelected(button.text)}
+                        onClick={() => {
+                            setSelected(button.text)
+                            navigate(button.path)
+                        }}
                         key={index}
                         startIcon={
                             <img src={button.icon} alt="icon" style={{ width: '24px' }} />
