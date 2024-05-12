@@ -2,8 +2,9 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import SearchBar from '../components/SearchBar'
 import filterIcn from "../images/filter.svg"
 import green from "../images/green.svg"
+import red from "../images/red.svg"
 
-const ServiceStatus = () => {
+const ParkingStatus = () => {
     return (
         <Box
             sx={{
@@ -41,7 +42,7 @@ const ServiceStatus = () => {
                             lineHeight: '24px',
                         }}
                     >
-                        Service Information
+                        Park Information
                     </Typography>
 
                     <Button
@@ -69,7 +70,7 @@ const ServiceStatus = () => {
                         borderBottom: '1px solid rgba(163, 163, 163, 0.25)'
                     }}
                 >
-                    {['No.', 'Car no.', 'Model', 'Service Status', 'Next Service'].map((item, index) => (
+                    {['No.', 'Car no.', 'Model', 'Park Status'].map((item, index) => (
                         <Typography
                             key={index}
                             sx={{
@@ -101,8 +102,6 @@ const ServiceStatus = () => {
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'space-between',
-                                // gap: '140px',
                                 p: '12px 0px',
                                 borderBottom: '1px solid rgba(163, 163, 163, 0.25)'
                             }}
@@ -116,6 +115,7 @@ const ServiceStatus = () => {
                                     fontWeight: 400,
                                     lineHeight: '16px',
                                     pl: '5px',
+                                    pr: '220px'
                                 }}
                             >
                                 {index + 1}
@@ -131,7 +131,8 @@ const ServiceStatus = () => {
                                     lineHeight: '14px',
                                     padding: '4px 12px',
                                     borderRadius: '4px',
-                                    bgcolor: "rgba(153, 153, 153, 0.10)"
+                                    bgcolor: "rgba(153, 153, 153, 0.10)",
+                                    mr: '180px'
                                 }}
                             >
                                 123456
@@ -145,6 +146,7 @@ const ServiceStatus = () => {
                                     fontSize: '12px',
                                     fontWeight: 300,
                                     lineHeight: 'NORMAL',
+                                    mr: '160px'
                                 }}
                             >
                                 Toyota Corolla
@@ -165,21 +167,9 @@ const ServiceStatus = () => {
                                 }}
                             >
                                 <img src={green} alt="green" />
-                                Service Due
+                                Parked
                             </Typography>
 
-                            <Typography
-                                sx={{
-                                    color: '#656575',
-                                    textAlign: 'center',
-                                    fontFamily: 'Inter, sans-serif',
-                                    fontSize: '12px',
-                                    fontWeight: 300,
-                                    lineHeight: 'NORMAL',
-                                }}
-                            >
-                                12/12/2022
-                            </Typography>
                         </Box>
                     ))}
                 </Box>
@@ -189,4 +179,4 @@ const ServiceStatus = () => {
     )
 }
 
-export default ServiceStatus
+export default ParkingStatus

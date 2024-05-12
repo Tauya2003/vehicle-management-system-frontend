@@ -5,6 +5,7 @@ import CarAVailable from "./CarAVailable"
 import Dashboard from "./Dashboard"
 import BookCar from "./BookCar"
 import ServiceStatus from "./ServiceStatus"
+import ParkingStatus from "./ParkingStatus"
 
 const Home = () => {
     return (
@@ -21,7 +22,7 @@ const Home = () => {
                 <Route path="/car-available" element={<CarAVailable />} />
                 <Route path="/book-car" element={<BookCar />} />
                 <Route path="/service-status" element={<ServiceStatus />} />
-                {/* <Route path="/parking-status" element={<ParkingStatus />} /> */}
+                <Route path="/parking-status" element={<ParkingStatus />} />
                 {/* <Route path="/fuel-status" element={<FuelStatus />} /> */}
             </Routes>
         </Box>
