@@ -3,8 +3,13 @@ import carIcn from "../images/bx-car.svg"
 import calenderIcn from "../images/calendar-check.svg"
 import filterIcn from "../images/filter.svg"
 import SearchBar from "../components/SearchBar"
+import { useVehicleQuery } from "../store"
 
 const CarAVailable = () => {
+    const { data } = useVehicleQuery(undefined)
+
+    if (!data) return 'loading..'
+
     return (
         <Box
             sx={{
@@ -17,9 +22,7 @@ const CarAVailable = () => {
                 width: "100%",
             }}
         >
-            <SearchBar />
-
-            <Box
+            {/* <Box
                 sx={{
                     display: 'inline-flex',
                     width: 'fit-content',
@@ -121,7 +124,7 @@ const CarAVailable = () => {
                         Check
                     </Button>
                 </Stack>
-            </Box>
+            </Box> */}
 
             <Box
                 sx={{
@@ -218,7 +221,8 @@ const CarAVailable = () => {
                         width: '100%',
                     }}
                 >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
+
+                    {data.filter((item) => item.availability === true).map((item, index) => (
                         <Box
                             key={index}
                             sx={{
@@ -256,7 +260,7 @@ const CarAVailable = () => {
                                     bgcolor: "rgba(153, 153, 153, 0.10)"
                                 }}
                             >
-                                123456
+                                {item.licensePlate}
                             </Typography>
 
                             <Typography
@@ -270,10 +274,11 @@ const CarAVailable = () => {
                                     ml: "70px"
                                 }}
                             >
-                                Toyota Corolla
+                                {`${item.make} ${item.model}`}
                             </Typography>
                         </Box>
-                    ))}
+                    ))
+                    }
                 </Box>
             </Box>
         </Box>

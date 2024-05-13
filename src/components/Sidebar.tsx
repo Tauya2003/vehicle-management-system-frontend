@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 
 const buttons = [
     { "icon": dashboardIcn, "text": "Dashboard", path: "/" },
-    { "icon": carIcn, "text": "Car Available", path: "/car-available" },
+    { "icon": carIcn, "text": "Cars Available", path: "/car-available" },
     { "icon": bookIcn, "text": "Book Car", path: "/book-car" },
     { "icon": bellIcn, "text": "Service Status", path: "/service-status" },
     { "icon": bellIcn, "text": "Parking Status", path: "/parking-status" },

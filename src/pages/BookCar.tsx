@@ -15,8 +15,6 @@ const BookCar = () => {
                 width: "100%",
             }}
         >
-            <SearchBar />
-
             <Box
                 sx={{
                     display: 'inline-flex',
