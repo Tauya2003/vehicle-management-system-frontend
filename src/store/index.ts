@@ -6,6 +6,7 @@ import {
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface Vehicle {
+  _id: string;
   make: string;
   model: string;
   year: number;
@@ -27,10 +28,22 @@ const vehicleApi = createApi({
     getVehicles: builder.query<Vehicle[], void>({
       query: () => "/vehicles",
     }),
+    updateVehicle: builder.mutation<Vehicle, Partial<Vehicle>>({
+      query: ({ _id, ...patch }) => ({
+        url: `/vehicles/${_id}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PATCH",
+        body: patch,
+      }),
+      transformResponse: (response: Vehicle) => response,
+    }),
   }),
 });
 
 export const useVehicleQuery = vehicleApi.endpoints.getVehicles.useQuery;
+export const useUpdateVehicle = vehicleApi.endpoints.updateVehicle.useMutation;
 
 const searchSlice = createSlice({
   name: "search",

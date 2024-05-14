@@ -1,10 +1,66 @@
-import { Box, Button, Stack, Typography } from '@mui/material'
-import SearchBar from '../components/SearchBar'
+import { Alert, Box, Button, Snackbar, Stack, Typography } from '@mui/material'
 import carIcn from "../images/bx-car.svg"
+import { useVehicleQuery, useUpdateVehicle, Vehicle } from '../store'
+import { useState } from 'react'
 
 const BookCar = () => {
+    const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null)
+
+    const [nationalID, setNationalID] = useState<string>("")
+    const [driverLicense, setDriverLicense] = useState<string>("")
+    const [employeeNumber, setEmployeeNumber] = useState<string>("")
+    const [success, setSuccess] = useState<boolean>(false)
+    const [failure, setFailure] = useState<boolean>(false)
+
+    const { data } = useVehicleQuery()
+    const [updateVehicle, { isLoading, error }] = useUpdateVehicle();
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        // Handle case where no vehicle is selected
+        if (!selectedVehicle) {
+            if (!selectedVehicle) {
+                console.error("No vehicle selected for update.");
+                return;
+            }
+        }
+
+        const updatedVehicleData = {
+            ...selectedVehicle,
+            availability: false,
+            driverNationalID: nationalID,
+            driverLicense: driverLicense,
+            employeeNumber: employeeNumber,
+            serviceStatus: "In Service",
+        };
+
+        // console.log(updatedVehicleData)
+        // updateVehicle(updatedVehicleData);
+        try {
+            const updatedVehicle = await updateVehicle(updatedVehicleData);
+            setSuccess(true);
+            console.log('Vehicle updated successfully:', updatedVehicle);
+            // Handle successful update response
+        } catch (error) {
+            console.error('Error updating vehicle:', error);
+            setFailure(true);
+            // Handle update error
+        }
+
+        // Reset form fields
+        setNationalID("");
+        setDriverLicense("");
+        setEmployeeNumber("");
+        setSelectedVehicle(null);
+    };
+
+    error && console.error(error)
+
     return (
         <Box
+            component={'form'}
+            onSubmit={handleSubmit}
             sx={{
                 padding: "56px 82px",
                 display: "flex",
@@ -39,7 +95,7 @@ const BookCar = () => {
                     Select Car
                 </Typography>
 
-                <Stack direction={'row'} gap={"377px"}>
+                <Stack direction={'row'} gap={'20px'}>
                     <Box sx={{
                         display: 'flex',
                         padding: '12px 16px',
@@ -47,40 +103,77 @@ const BookCar = () => {
                         gap: '12px',
                         borderRadius: '8px',
                         border: '1px solid #DEDEDE',
+                        height: 'fit-content',
                     }}>
                         <img src={carIcn} alt="car" />
 
-                        <select style={{
-                            border: 'none',
-                            outline: 'none',
-                            fontSize: '16px',
-                            color: '#454550',
-                            alignSelf: 'stretch',
-                            width: '100%',
-                        }}>
-                            <option value="">Car Number</option>
+                        <select
+                            required
+                            onChange={(e) => {
+                                setSelectedVehicle(data?.find((car) => car.licensePlate === e.target.value) || null)
+                            }}
+                            style={{
+                                border: 'none',
+                                outline: 'none',
+                                fontSize: '16px',
+                                color: '#454550',
+                                alignSelf: 'stretch',
+                                width: '100%',
+                            }}>
+                            <option value="">{" "}</option>
+                            {data?.filter((car) => car.availability).map((car, index) => (
+                                <option key={index} value={car.licensePlate}>{car.licensePlate}</option>
+                            ))}
                         </select>
                     </Box>
 
-                    <Button sx={{
-                        padding: '12px 36px',
-                        borderRadius: '4px',
-                        fontFamily: 'Inter, sans-serif',
-                        textTransform: 'capitalize',
-                        bgcolor: '#006AFF',
-                        color: '#fff',
-                        fontSize: '16px',
-                        fontWeight: 400,
-                        lineHeight: '24px',
-                        boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                    {selectedVehicle && (
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '8px',
+                            padding: '16px',
+                            borderRadius: '8px',
+                            border: '1px solid #DEDEDE',
+                        }}>
+                            <Typography
+                                sx={{
+                                    color: "#1A1919",
+                                    fontFamily: 'Inter',
+                                    fontSize: '16px',
+                                    fontWeight: 600,
+                                    lineHeight: '24px',
+                                }}
+                            >
+                                {selectedVehicle.licensePlate}
+                            </Typography>
+                            {" | "}
+                            <Typography
+                                sx={{
+                                    color: "#1A1919",
+                                    fontFamily: 'Inter',
+                                    fontSize: '16px',
+                                    fontWeight: 400,
+                                    lineHeight: '24px',
+                                }}
+                            >
+                                {selectedVehicle.make} {selectedVehicle.model} {" | "} {selectedVehicle.year}
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    color: "#1A1919",
+                                    fontFamily: 'Inter',
+                                    fontSize: '16px',
+                                    fontWeight: 400,
+                                    lineHeight: '24px',
+                                }}
+                            ></Typography>
+                        </Box>
+                    )}
 
-                        '&:hover': {
-                            bgcolor: '#006AFF',
-                        }
-                    }}>
-                        Select
-                    </Button>
+
                 </Stack>
+
             </Box>
 
 
@@ -106,7 +199,6 @@ const BookCar = () => {
                 </Typography>
 
                 <Box
-                    component={'form'}
                     sx={{
                         display: 'flex',
                         flexDirection: 'row',
@@ -128,7 +220,9 @@ const BookCar = () => {
                             }}>
                             <input type="text"
                                 required
-                                placeholder='Name'
+                                placeholder='National ID'
+                                value={nationalID}
+                                onChange={(e) => setNationalID(e.target.value)}
                                 style={{
                                     border: 'none',
                                     outline: 'none',
@@ -149,11 +243,12 @@ const BookCar = () => {
                                 flexShrink: 0,
                                 borderRadius: '12px',
                                 backgroundColor: '#F1F1F1',
-
                             }}>
                             <input type="text"
                                 required
                                 placeholder='Driver License Number'
+                                value={driverLicense}
+                                onChange={(e) => setDriverLicense(e.target.value)}
                                 style={{
                                     border: 'none',
                                     outline: 'none',
@@ -181,6 +276,8 @@ const BookCar = () => {
                             <input type="text"
                                 required
                                 placeholder='Employee ID'
+                                value={employeeNumber}
+                                onChange={(e) => setEmployeeNumber(e.target.value)}
                                 style={{
                                     border: 'none',
                                     outline: 'none',
@@ -194,6 +291,7 @@ const BookCar = () => {
 
 
                         <Button
+                            disabled={isLoading || !selectedVehicle || !nationalID || !driverLicense || !employeeNumber}
                             type="submit"
                             sx={{
                                 color: '#fff',
@@ -211,14 +309,60 @@ const BookCar = () => {
 
                                 '&:hover': {
                                     bgcolor: '#006AFF',
+                                },
+
+                                '&:disabled': {
+                                    bgcolor: '#B0B0B0',
                                 }
+
+
                             }}
                         >Book</Button>
+
+                        <Snackbar
+                            open={success}
+                            autoHideDuration={6000}
+                            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                            onClose={() => setSuccess(false)}
+                        >
+                            <Alert severity="success">Vehicle booked successfully!</Alert>
+                        </Snackbar>
+
+                        <Snackbar
+                            open={failure}
+                            autoHideDuration={6000}
+                            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                            onClose={() => setFailure(false)}
+                        >
+                            <Alert severity="error">Error booking vehicle!</Alert>
+                        </Snackbar>
 
                     </Stack>
                 </Box>
             </Box>
             {/* Driver Details End */}
+
+
+
+            <Button
+                sx={{
+                    color: '#fff',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '16px',
+                    fontWeight: 400,
+                    lineHeight: '24px',
+                    textTransform: 'capitalize',
+                    padding: '12px 36px',
+                    borderRadius: '4px',
+                    bgcolor: '#006AFF',
+                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                    width: 'fit-content',
+
+                    '&:hover': {
+                        bgcolor: '#006AFF',
+                    },
+                }}
+            >Return Vehicle</Button>
         </Box>
     )
 }

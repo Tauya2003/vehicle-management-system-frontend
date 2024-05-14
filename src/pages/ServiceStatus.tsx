@@ -3,8 +3,15 @@ import SearchBar from '../components/SearchBar'
 import filterIcn from "../images/filter.svg"
 import green from "../images/green.svg"
 import red from "../images/red.svg"
+import { useVehicleQuery } from '../store'
 
 const ServiceStatus = () => {
+    const { data } = useVehicleQuery();
+
+    if (!data) return <div>Loading...</div>
+
+    console.log(data)
+
     return (
         <Box
             sx={{
@@ -96,7 +103,7 @@ const ServiceStatus = () => {
                         width: '100%',
                     }}
                 >
-                    {[1, 2, 3, 4, 5,].map((item, index) => (
+                    {data.map((item, index) => (
                         <Box
                             key={index}
                             sx={{
@@ -135,7 +142,7 @@ const ServiceStatus = () => {
                                     bgcolor: "rgba(153, 153, 153, 0.10)"
                                 }}
                             >
-                                123456
+                                {item.licensePlate}
                             </Typography>
 
                             <Typography
@@ -148,7 +155,7 @@ const ServiceStatus = () => {
                                     lineHeight: 'NORMAL',
                                 }}
                             >
-                                Toyota Corolla
+                                {`${item.make} ${item.model}`}
                             </Typography>
 
                             <Typography
@@ -165,8 +172,8 @@ const ServiceStatus = () => {
 
                                 }}
                             >
-                                <img src={green} alt="green" />
-                                Service Due
+                                <img src={item?.serviceStatus === "In Service" ? green : red} alt="green" />
+                                {item?.serviceStatus}
                             </Typography>
 
                             <Typography
@@ -179,7 +186,7 @@ const ServiceStatus = () => {
                                     lineHeight: 'NORMAL',
                                 }}
                             >
-                                12/12/2022
+                                {item?.nextServiceDate?.toString()}
                             </Typography>
                         </Box>
                     ))}
