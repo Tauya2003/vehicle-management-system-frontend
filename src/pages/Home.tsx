@@ -8,6 +8,7 @@ import ServiceStatus from "./ServiceStatus"
 import ParkingStatus from "./ParkingStatus"
 import FuelStatus from "./FuelStatus"
 import AddVehicle from "./AddVehicle"
+import ReturnVehicle from "./ReturnVehicle"
 
 const Home = () => {
     return (
@@ -27,6 +28,7 @@ const Home = () => {
                 <Route path="/parking-status" element={<ParkingStatus />} />
                 <Route path="/fuel-status" element={<FuelStatus />} />
                 <Route path="/add-vehicle" element={<AddVehicle />} />
+                <Route path="/return-vehicle" element={<ReturnVehicle />} />
             </Routes>
         </Box>
     )

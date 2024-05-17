@@ -2,9 +2,11 @@ import { Alert, Box, Button, Snackbar, Stack, Typography } from '@mui/material'
 import carIcn from "../images/bx-car.svg"
 import { useVehicleQuery, useUpdateVehicle, Vehicle } from '../store'
 import { useState } from 'react'
-import ReturnVehicleModal from '../components/ReturnVehicleModal'
+import { useNavigate } from 'react-router-dom'
 
 const BookCar = () => {
+    const navigate = useNavigate()
+
     const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null)
 
     const [nationalID, setNationalID] = useState<string>("")
@@ -339,7 +341,26 @@ const BookCar = () => {
             {/* Driver Details End */}
 
 
-            <ReturnVehicleModal />
+            <Button
+                onClick={() => navigate('/return-vehicle')}
+                sx={{
+                    color: '#fff',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '16px',
+                    fontWeight: 400,
+                    lineHeight: '24px',
+                    textTransform: 'capitalize',
+                    padding: '12px 36px',
+                    borderRadius: '4px',
+                    bgcolor: '#006AFF',
+                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                    width: 'fit-content',
+
+                    '&:hover': {
+                        bgcolor: '#006AFF',
+                    },
+                }}
+            >Return Vehicle</Button>
 
 
         </Box>
