@@ -107,12 +107,14 @@ const Dashboard = () => {
                     alignItems: "center",
                 }}>
                     <Typography
+                        onClick={() => navigate('/car-available')}
                         sx={{
                             color: "#1A1919",
                             fontFamily: 'Inter, sans-serif',
                             fontSize: '16px',
                             fontWeight: 500,
                             lineHeight: '24px',
+                            cursor: "pointer",
                         }}
                     >
                         Available Vehicles

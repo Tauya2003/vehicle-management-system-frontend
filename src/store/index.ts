@@ -39,11 +39,20 @@ const vehicleApi = createApi({
       }),
       transformResponse: (response: Vehicle) => response,
     }),
+    addVehicle: builder.mutation<Vehicle, Partial<Vehicle>>({
+      query: (vehicle) => ({
+        url: "/vehicles",
+        method: "POST",
+        body: vehicle,
+      }),
+      transformResponse: (response: Vehicle) => response,
+    }),
   }),
 });
 
 export const useVehicleQuery = vehicleApi.endpoints.getVehicles.useQuery;
 export const useUpdateVehicle = vehicleApi.endpoints.updateVehicle.useMutation;
+export const useAddVehicle = vehicleApi.endpoints.addVehicle.useMutation;
 
 const searchSlice = createSlice({
   name: "search",
