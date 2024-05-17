@@ -1,9 +1,12 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Button, Typography } from "@mui/material"
 import { useVehicleQuery } from "../store"
 import green from "../images/green.svg"
 import red from "../images/red.svg"
+import { useNavigate } from "react-router-dom"
 
 const Dashboard = () => {
+    const navigate = useNavigate()
+
     const { data } = useVehicleQuery()
 
     return (
@@ -18,6 +21,29 @@ const Dashboard = () => {
                 width: "100%",
             }}
         >
+            {/* Add new Vehicle Button Start */}
+            <Button
+                onClick={() => navigate('/add-vehicle')}
+                sx={{
+                    display: 'inline-flex',
+                    padding: "12px 24px",
+                    borderRadius: "8px",
+                    bgcolor: "#4B7BFF",
+                    color: "#fff",
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    lineHeight: '24px',
+                    boxShadow: "0px 8px 24px 0px rgba(69, 69, 80, 0.10)",
+                    "&:hover": {
+                        bgcolor: "#4B7BFF",
+                    }
+                }}
+            >
+                Add New Vehicle
+            </Button>
+            {/* Add new Vehicle Button End */}
+
             {/* Fleet Summary Start */}
             <Box sx={{
                 display: 'inline-flex',
