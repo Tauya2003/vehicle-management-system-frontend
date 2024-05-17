@@ -10,8 +10,6 @@ const ServiceStatus = () => {
 
     if (!data) return <div>Loading...</div>
 
-    console.log(data)
-
     return (
         <Box
             sx={{
@@ -52,20 +50,7 @@ const ServiceStatus = () => {
                         Service Information
                     </Typography>
 
-                    <Button
-                        startIcon={
-                            <img src={filterIcn} alt="filter" />
-                        }
-                        sx={{
-                            color: '#525256',
-                            fontFamily: 'Inter, sans-serif',
-                            fontSize: '16px',
-                            fontWeight: 500,
-                            lineHeight: '24px',
-                            textTransform: 'capitalize',
-                        }}>
-                        Filter
-                    </Button>
+
                 </Stack>
 
                 <Box
@@ -77,7 +62,7 @@ const ServiceStatus = () => {
                         borderBottom: '1px solid rgba(163, 163, 163, 0.25)'
                     }}
                 >
-                    {['No.', 'Car no.', 'Model', 'Service Status', 'Next Service'].map((item, index) => (
+                    {['No.', 'Car no.', 'Model', 'Service Status'].map((item, index) => (
                         <Typography
                             key={index}
                             sx={{
@@ -169,25 +154,12 @@ const ServiceStatus = () => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: '5px',
-
+                                    mr: '50px',
                                 }}
                             >
-                                <img src={item?.serviceStatus === "In Service" ? green : red} alt="green" />
                                 {item?.serviceStatus}
                             </Typography>
 
-                            <Typography
-                                sx={{
-                                    color: '#656575',
-                                    textAlign: 'center',
-                                    fontFamily: 'Inter, sans-serif',
-                                    fontSize: '12px',
-                                    fontWeight: 300,
-                                    lineHeight: 'NORMAL',
-                                }}
-                            >
-                                {item?.nextServiceDate?.toString()}
-                            </Typography>
                         </Box>
                     ))}
                 </Box>
