@@ -45,18 +45,6 @@ const CarAVailable = () => {
                         }}
                     >Available Cars</Typography>
 
-                    <Button
-                        startIcon={<img src={filterIcn} alt="filter" />}
-                        sx={{
-                            textTransform: 'capitalize',
-                            color: "#525256",
-                            fontSize: "16px",
-                            fontWeight: 500,
-                            lineHeight: "24px",
-                        }}
-                    >
-                        Filter
-                    </Button>
                 </Box>
 
                 <Box

@@ -2,6 +2,7 @@ import {
   createSlice,
   configureStore,
   type PayloadAction,
+  createSelector,
 } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -80,3 +81,19 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 
 export const selectSearch = (state: RootState) => state.search.search;
+
+store.dispatch(vehicleApi.endpoints.getVehicles.initiate(undefined));
+
+export const selectVehicle = createSelector(
+  (state: RootState) =>
+    vehicleApi.endpoints.getVehicles.select(undefined)(state)?.data,
+  (state: RootState) => state.search.search,
+  (vehicles, search) =>
+    (vehicles || []).filter(
+      (vehicle) =>
+        vehicle.make.toLowerCase().includes(search.toLowerCase()) ||
+        vehicle.model.toLowerCase().includes(search.toLowerCase()) ||
+        vehicle.licensePlate.toLowerCase().includes(search.toLowerCase()) ||
+        vehicle.vin.toLowerCase().includes(search.toLowerCase())
+    )
+);

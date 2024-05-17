@@ -3,9 +3,11 @@ import SearchBar from '../components/SearchBar'
 import filterIcn from "../images/filter.svg"
 import green from "../images/green.svg"
 import red from "../images/red.svg"
-import { useVehicleQuery } from '../store'
+import { selectVehicle, useVehicleQuery } from '../store'
+import { useSelector } from 'react-redux'
 
 const ParkingStatus = () => {
+    const vehicle = useSelector(selectVehicle)
 
     const { data } = useVehicleQuery()
 
@@ -51,20 +53,6 @@ const ParkingStatus = () => {
                         Park Information
                     </Typography>
 
-                    <Button
-                        startIcon={
-                            <img src={filterIcn} alt="filter" />
-                        }
-                        sx={{
-                            color: '#525256',
-                            fontFamily: 'Inter, sans-serif',
-                            fontSize: '16px',
-                            fontWeight: 500,
-                            lineHeight: '24px',
-                            textTransform: 'capitalize',
-                        }}>
-                        Filter
-                    </Button>
                 </Stack>
 
                 <Box
@@ -102,7 +90,7 @@ const ParkingStatus = () => {
                         width: '100%',
                     }}
                 >
-                    {data.map((item, index) => (
+                    {vehicle.map((item, index) => (
                         <Box
                             key={index}
                             sx={{

@@ -3,10 +3,12 @@ import SearchBar from '../components/SearchBar'
 import filterIcn from "../images/filter.svg"
 import green from "../images/green.svg"
 import red from "../images/red.svg"
-import { useVehicleQuery } from '../store'
+import { selectVehicle, useVehicleQuery } from '../store'
+import { useSelector } from 'react-redux'
 
 const ServiceStatus = () => {
     const { data } = useVehicleQuery();
+    const vehicles = useSelector(selectVehicle)
 
     if (!data) return <div>Loading...</div>
 
@@ -88,7 +90,7 @@ const ServiceStatus = () => {
                         width: '100%',
                     }}
                 >
-                    {data.map((item, index) => (
+                    {vehicles.map((item, index) => (
                         <Box
                             key={index}
                             sx={{

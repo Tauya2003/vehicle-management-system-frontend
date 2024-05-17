@@ -45,20 +45,6 @@ const FuelStatus = () => {
                         Fuel Usage
                     </Typography>
 
-                    <Button
-                        startIcon={
-                            <img src={filterIcn} alt="filter" />
-                        }
-                        sx={{
-                            color: '#525256',
-                            fontFamily: 'Inter, sans-serif',
-                            fontSize: '16px',
-                            fontWeight: 500,
-                            lineHeight: '24px',
-                            textTransform: 'capitalize',
-                        }}>
-                        Filter
-                    </Button>
                 </Stack>
 
                 <Box
