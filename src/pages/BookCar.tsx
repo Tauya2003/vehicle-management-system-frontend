@@ -36,7 +36,7 @@ const BookCar = () => {
         // console.log(updatedVehicleData)
         // updateVehicle(updatedVehicleData);
         try {
-            const updatedVehicle = await updateVehicle(updatedVehicleData);
+            updateVehicle(updatedVehicleData);
             setSuccess(true);
 
             // Handle successful update response
